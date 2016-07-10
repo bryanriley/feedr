@@ -1,0 +1,29 @@
+// getSourceMashable : function() {
+//   $.get('https://accesscontrolalloworiginall.herokuapp.com/http://mashable.com/stories.json', $.proxy(Feedr.responseMashable, Feedr))
+//       .done(function(){
+//         console.log( "Mashable source loaded");
+//       });
+//       .fail(function() {
+//         alert( "Unable to load Mashable content" );
+//       });
+// }
+//
+// getSourceReddit : function() {
+//   $.get('https://www.reddit.com/top.json', $.proxy(Feedr.responseReddit, Feedr))
+//       .done(function(){
+//         console.log( "Reddit source loaded");
+//       });
+//       .fail(function() {
+//         alert( "Unable to load Reddit content" );
+//       });
+// }
+//
+// getSourceDigg : function() {
+//   $.get('https://accesscontrolalloworiginall.herokuapp.com/http://digg.com/api/news/popular.json', $.proxy(Feedr.responseDigg, Feedr))
+//       .done(function(){
+//         console.log( "Digg source loaded");
+//       })
+//       .fail(function() {
+//         alert( "Unable to load Digg content" );
+//       });
+// }
