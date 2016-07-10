@@ -5,45 +5,81 @@
 
 var source = $("#titleTemplate").html();
 var template = Handlebars.compile(source);
-// var source2 = $('#link-template').html();
-// var containerTemplate = Handlebars.compile(source2);
+
+var template2 = $('#link-template').html();
+var linkTemplate = Handlebars.compile(template2);
 
 $('#popUp').removeClass('hidden');
+$('.closePopUp').hide();
 
 $.get("https://accesscontrolalloworiginall.herokuapp.com/http://mashable.com/stories.json", function(results) {
+
+  $(this).ready(function() {
+    console.log('Mashable loaded');
+  });
+
+  $('#popUp').addClass('hidden');
+
   console.log(results);
   var articles = results.hot;
 
   articles.forEach(function(article){
-    // article images
+
+    // Article images
     var returnedImage = article.image;
-    var addImage = returnedImage;
+    var articleImage = returnedImage;
 
-    // article title, channel and shares
-    var title = article.title;
-    var channel = article.channel;
-    var shares = article.shares.total;
+    // Image alt
+    var returnedAlt = article.title;
+    var imageAlt = returnedAlt;
 
-    var context = {title: title, channel: channel, shares: shares, thumbnail: addImage};
-    var html = template(context);
-    var $html = $(html);
+    // Article title, image alt, channel and shares
+    var articleTitle = article.title;
+    var articleChannel = article.channel;
+    var articleShares = article.shares.total;
 
-    // console.log(html);
+    // Contents for popup
+    var articleCopy = article.content.plain;
+    var articleLink = article.link;
 
-    console.log($(html));
+    // Templating
+    var articleContent = {  title: articleTitle,
+                            alt: imageAlt,
+                            channel: articleChannel,
+                            shares: articleShares,
+                            thumbnailImage: articleImage
+    };
+
+    // Handlbars Templates
+    var templateHtml = template(articleContent);
+
+    // Create jQuery object
+    var $html = $(templateHtml);
+
+    // console.log($(html));
 
     // Open popup
-    $html.click(function(event) {
+    $html.click(function() {
       $('#popUp').removeClass('hidden');
-      console.log('popup opened');
 
-      $('#popUp').load($(this).attr('href'), function() {
-          $('#container').modal({
-              backdrop: true
-          });
-          event.preventDefault();
-      });
-    })
+      console.log('Popup Opened');
+
+      var linkContents = {  link: articleLink,
+                            title: articleTitle,
+                            copy: articleCopy
+      };
+
+      // complile and append template
+      var compiledLinkTemplate = linkTemplate(linkContents);
+      $("#popUp").append(compiledLinkTemplate);
+
+      $('.container').fadeIn('slow');
+      $('.closePopUp').fadeIn('slow');
+
+      $('#popUp').removeClass('loader');
+
+        event.preventDefault();
+    });
 
     $("#main").append($html);
 
@@ -79,12 +115,3 @@ $.get("https://accesscontrolalloworiginall.herokuapp.com/http://mashable.com/sto
   //     $(this).addClass('active');
   //   }
   // });
-
-
-
-
-
-
-
-
-  $('#popUp').addClass('hidden');
