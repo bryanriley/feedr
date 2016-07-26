@@ -2,8 +2,8 @@
 var template1 = $('#article-template').html();
 var articleTemplate = Handlebars.compile(template1);
 
-// var template2 = $('#link-template').html();
-// var linkTemplate = Handlebars.compile(template2);
+var template2 = $('#link-template').html();
+var linkTemplate = Handlebars.compile(template2);
 
 
 // Set up app object
